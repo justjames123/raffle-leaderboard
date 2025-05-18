@@ -39,8 +39,9 @@ with st.expander("🎟️ How Raffle Tickets Are Calculated"):
     - Both **messages sent** and **characters typed** are counted  
     - Contributions are **normalized by time**, so consistency beats spamming  
     - Max of **5 tickets per day** to prevent abuse  
-    - Bonus: **+1 ticket** for every **7 full days** you’ve been in the server  
+    - Bonus: **+1 ticket** for every **14 full days** you’ve been in the server  
     - Everyone who reacts to the post gets **at least 1 ticket**
+    - Users with **no message activity** are limited to **1 ticket only**
 
     ---
     **🧠 For the Big Brains:**
@@ -49,10 +50,10 @@ with st.expander("🎟️ How Raffle Tickets Are Calculated"):
     st.latex(r'''
     \begin{align*}
     \text{Days} &= \min(\text{days since first message or join date},\ \text{days since Feb\ 1,\ 2025}) \\
-    \text{AdjDays} &= \max(\text{Days},\ 21) \\
+    \text{AdjDays} &= \max(\text{Days},\ 30) \\
     \\
     \text{Tickets} &= \min\left(\left(\frac{0.75 \times \text{Messages}}{\text{Days}} + \frac{\text{Characters}}{150 \times \text{Days}}\right),\ \text{Days} \times 5\right) \\
-    &\quad + \left\lfloor\frac{\text{Days}}{7}\right\rfloor + 1\ \text{(if no activity)}
+    &\quad + \left\lfloor\frac{\text{Days}}{14}\right\rfloor + 1\ \text{(if no activity)}
     \end{align*}
     ''')
 
