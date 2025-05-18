@@ -56,12 +56,11 @@ with st.expander("🎟️ How Raffle Tickets Are Calculated"):
     \end{align*}
     ''')
 
-
 # Filter users
 users = df_sorted["User"].unique()
 selected_users = st.multiselect("Filter by user(s)", users)
 
-
+# Apply filtering
 df_filtered = df_sorted[df_sorted["User"].isin(selected_users)] if selected_users else df_sorted
 
 # Sorting option
@@ -71,8 +70,8 @@ df_filtered = df_filtered.sort_values(by=sort_col, ascending=False)
 # Display table without index
 st.dataframe(df_filtered.reset_index(drop=True), use_container_width=True)
 
-# Chart: Top 10 Raffle Ticket holders
-top10 = df_sorted.head(10)
+# Chart: Top 10 (Filtered) Raffle Ticket Holders
+top10 = df_filtered.head(10)
 fig, ax = plt.subplots(figsize=(10, 6))
 bars = ax.barh(top10["User"], top10["Raffle Tickets"])
 ax.invert_yaxis()
