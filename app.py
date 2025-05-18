@@ -34,28 +34,18 @@ with st.expander("🎟️ How Raffle Tickets Are Calculated"):
     **Since our goal is to "give back to the community," we're using a raffle system that rewards meaningful and consistent engagement in the server.**  
     Essentially, the longer and more active you've been, the more raffle tickets you get.
 
-    **📊 What Counts:**  
+    **📊 How Your Raffle Tickets Are Counted:**  
     - Activity is measured from **Feb 1, 2025** (when the PC version was announced)  
-    - Both **messages sent** and **characters typed** are counted  
-    - Contributions are **normalized by time**, so consistency beats spamming  
-    - Max of **5 tickets per day** to prevent abuse  
-    - Bonus: **+1 ticket** for every **14 full days** you’ve been in the server  
+    - Both *messages sent* and *characters typed* are counted  
+    - Contributions are *normalized by how long you've been in the server* since Feb. 1, so consistency beats spamming  
+    - Max of *5 tickets per day* to prevent abuse  
+    - Bonus: *+1 ticket* for every **14 full days** you’ve been in the server  
     - Everyone who reacts to the post gets **at least 1 ticket**
-    - Users with **no message activity** are limited to **1 ticket only**
-
+    - Users with *no message activity* are limited to *1 ticket only*
+    - Raffle tickets are capped at *50 max per member*
     ---
-    **🧠 For the Big Brains:**
     """)
-    
-    st.latex(r'''
-    \begin{align*}
-    \text{Days} &= \min(\text{days since first message or join date},\ \text{days since Feb\ 1,\ 2025}) \\
-    \text{AdjDays} &= \max(\text{Days},\ 30) \\
-    \\
-    \text{Tickets} &= \min\left(\left(\frac{0.75 \times \text{Messages}}{\text{Days}} + \frac{\text{Characters}}{150 \times \text{Days}}\right),\ \text{Days} \times 5\right) \\
-    &\quad + \left\lfloor\frac{\text{Days}}{14}\right\rfloor + 1\ \text{(if no activity)}
-    \end{align*}
-    ''')
+
 
 # Filter users
 users = df_sorted["User"].unique()
