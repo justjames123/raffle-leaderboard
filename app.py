@@ -31,21 +31,21 @@ st.markdown("<h1 style='text-align: center;'>🏆 Stellar Blade Discord Server R
 # How It Works Dropdown
 with st.expander("🎟️ How Raffle Tickets Are Calculated"):
     st.markdown("""
-    ## 🎟️ **How It Works**
+    **Since our goal is to "give back to the community," we're using a raffle system that rewards meaningful and consistent engagement in the server.**  
+    Essentially, the longer and more active you've been, the more raffle tickets you get.
 
-    Since our goal is to "give back to the community," we're using a raffle system that rewards **meaningful and consistent** engagement in the server. Essentially, the longer and more active you've been in here, the more raffle tickets you get:
+    **📊 What Counts:**  
+    - Activity is measured from **Feb 1, 2025** (when the PC version was announced)  
+    - Both **messages sent** and **characters typed** are counted  
+    - Contributions are **normalized by time**, so consistency beats spamming  
+    - Max of **5 tickets per day** to prevent abuse  
+    - Bonus: **+1 ticket** for every **7 full days** you’ve been in the server  
+    - Everyone who reacts to the post gets **at least 1 ticket**
 
-    📊 **What Counts:**  
-    • Activity is measured from **Feb 1, 2025** (when the PC version was announced)  
-    • Both **messages sent** and **characters typed** are counted  
-    • Contributions are **normalized by time**, so consistency beats spamming  
-    • Max of **5 tickets per day** to prevent abuse  
-    • Bonus: **+1 ticket** for every **7 full days** you’ve been in the server  
-    • Everyone who reacts to the post gets **at least 1 ticket**
     ---
+    **🧠 For the Big Brains:**
     """)
-
-    st.markdown("### 🧠 For the Big Brains:")
+    
     st.latex(r'''
     \begin{align*}
     \text{Days} &= \min(\text{days since first message or join date},\ \text{days since Feb\ 1,\ 2025}) \\
@@ -56,9 +56,11 @@ with st.expander("🎟️ How Raffle Tickets Are Calculated"):
     \end{align*}
     ''')
 
+
 # Filter users
 users = df_sorted["User"].unique()
 selected_users = st.multiselect("Filter by user(s)", users)
+
 
 df_filtered = df_sorted[df_sorted["User"].isin(selected_users)] if selected_users else df_sorted
 
