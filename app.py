@@ -1,33 +1,57 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
 
-# Load CSV
-CSV_PATH = "discord_message_stats.csv"
+# Load CSV from GitHub
+url = "https://raw.githubusercontent.com/justjames123/raffle-bot/main/discord_message_stats.csv"
 
 @st.cache_data
 def load_data():
-    try:
-        return pd.read_csv(CSV_PATH)
-    except Exception as e:
-        st.error(f"Failed to load data: {e}")
-        return pd.DataFrame()
+    return pd.read_csv(url)
 
+# Load & format
 df = load_data()
 
-st.title("🎉 Stellar Blade Raffle Giveaway: Raffle Ticket Leaderboard")
+# Columns to display and rename
+display_cols = {
+    "User": "User",
+    "Messages": "Messages",
+    "Characters": "Characters",
+    "Days in Server": "Days in Server",
+    "Final_Tickets_With_Bonus": "Raffle Tickets"
+}
+df_display = df[list(display_cols.keys())].rename(columns=display_cols)
 
-if not df.empty:
-    users = df["User"].tolist()
-    selected_user = st.selectbox("Select a user to view stats:", users)
+# Sort by Raffle Tickets by default
+df_sorted = df_display.sort_values(by="Raffle Tickets", ascending=False)
 
-    if selected_user:
-        row = df[df["User"] == selected_user].iloc[0]
+# Title
+st.markdown("<h1 style='text-align: center;'>🏆 Stellar Blade Discord Server Raffle Leaderboard 🏆</h1>", unsafe_allow_html=True)
 
-        st.markdown(f"### 📊 Stats for `{selected_user}`")
-        st.write(f"• **Messages**: {row['Messages']}")
-        st.write(f"• **Characters**: {row['Characters']}")
-        st.write(f"• **Days in Server**: {row['Days in Server']}")
-        st.write(f"• **Total Tickets**: {row.get('Final_Tickets_With_Bonus', 'N/A')}")
+# Filter users
+users = df_sorted["User"].unique()
+selected_users = st.multiselect("Filter by user(s)", users)
 
-else:
-    st.warning("Upload or generate the CSV file first.")
+df_filtered = df_sorted[df_sorted["User"].isin(selected_users)] if selected_users else df_sorted
+
+# Sorting option
+sort_col = st.selectbox("Sort by", df_filtered.columns, index=df_filtered.columns.get_loc("Raffle Tickets"))
+df_filtered = df_filtered.sort_values(by=sort_col, ascending=False)
+
+# Display table without index
+st.dataframe(df_filtered.reset_index(drop=True), use_container_width=True)
+
+# Chart: Top 10 Raffle Ticket holders
+top10 = df_sorted.head(10)
+fig, ax = plt.subplots(figsize=(10, 6))
+bars = ax.barh(top10["User"], top10["Raffle Tickets"])
+ax.invert_yaxis()
+ax.set_xlabel("Raffle Tickets")
+ax.set_title("Top 10 Raffle Ticket Holders")
+
+# Optional value labels
+for bar in bars:
+    width = bar.get_width()
+    ax.text(width + 0.5, bar.get_y() + bar.get_height() / 2, int(width), va='center')
+
+st.pyplot(fig)
