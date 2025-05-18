@@ -43,7 +43,6 @@ with st.expander("🎟️ How Raffle Tickets Are Calculated"):
     - Everyone who reacts to the post gets **at least 1 ticket**
     - Users with *no message activity* are limited to *1 ticket only*
     - Raffle tickets are capped at *50 max per member*
-    ---
     """)
 
 
