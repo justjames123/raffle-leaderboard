@@ -14,7 +14,7 @@ def load_data():
 
 df = load_data()
 
-st.title("🎉 Raffle Stats Viewer")
+st.title("🎉 Stellar Blade Raffle Giveaway: Raffle Ticket Leaderboard")
 
 if not df.empty:
     users = df["User"].tolist()
