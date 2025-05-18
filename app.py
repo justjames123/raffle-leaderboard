@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load CSV
-CSV_PATH = "F:/Python/discord_message_stats.csv"
+CSV_PATH = "discord_message_stats.csv"
 
 @st.cache_data
 def load_data():
