@@ -28,7 +28,7 @@ df_sorted = df_display.sort_values(by="Raffle Tickets", ascending=False)
 # Title
 st.markdown("<h1 style='text-align: center;'>🏆 Stellar Blade Discord Server Raffle Leaderboard 🏆</h1>", unsafe_allow_html=True)
 # Subtitle
-st.markdown("<h3 style='text-align: center;'>*Data as of: May 18, 2025, 4:18PM CST*</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>*Data as of: May 21, 2025, 12:28PM CST*</h3>", unsafe_allow_html=True)
 
 # How It Works Dropdown
 with st.expander("🎟️ How Raffle Tickets Are Calculated"):
